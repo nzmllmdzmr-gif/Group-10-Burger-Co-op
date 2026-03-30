@@ -19,4 +19,17 @@ public class Player {
     public int getX() { return x; }
     public int getY() { return y; }
     public String getId() { return id; }
+    // Author:haoyang cui
+    //控制移动范围
+    public void move(int dx, int dy) {
+        int nextX = this.x + (dx * speed);
+        int nextY = this.y + (dy * speed);
+        
+        if (nextX >= 0 && nextX <= 800 - 30) {
+            this.x = nextX;
+        }
+        if (nextY >= 0 && nextY <= 600 - 60) { // 减60是为了避开标题栏
+            this.y = nextY;
+        }
+    }
 }
