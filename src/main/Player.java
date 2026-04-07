@@ -11,15 +11,10 @@ public class Player {
         this.y = startY;
     }
 
-    public void move(int dx, int dy) {
-        this.x += dx * speed;
-        this.y += dy * speed;
-    }
 
     public int getX() { return x; }
     public int getY() { return y; }
     public String getId() { return id; }
-    // Author:haoyang cui
     //控制移动范围
     public void move(int dx, int dy) {
         int nextX = this.x + (dx * speed);
