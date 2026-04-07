@@ -69,19 +69,27 @@ public class GamePanel extends JPanel {
     }
 
     @Override
-    public void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        
-        // 背景分区
-        g.setColor(GameSettings.COLOR_COOKING);
-        g.fillRect(0, 0, 400, 600);
-        
-        g.setColor(GameSettings.COLOR_ASSEMBLY);
-        g.fillRect(400, 0, 400, 600);
-        
-        g.setColor(Color.BLACK);
-        g.drawLine(400, 0, 400, 600);
+        Graphics2D g2 = (Graphics2D) g;
 
+        // 1. 绘制左侧：烹饪区 (Cooking Zone)
+        g2.setColor(GameSettings.COLOR_COOKING);
+        g2.fillRect(0, 0, 400, 600);
+
+        // 2. 绘制右侧：组装区 (Assembly Zone)
+        g2.setColor(GameSettings.COLOR_ASSEMBLY);
+        g2.fillRect(400, 0, 488, 600);
+
+        // 3. 绘制中间的 Grill (作为交流的桥梁)
+        g2.setColor(GameSettings.COLOR_GRILL);
+        g2.fillRect(350, 200, 100, 150); // 位于正中间的格栅
+
+        // 4. 绘制顶部的订单栏背景
+        g2.setColor(Color.WHITE);
+        g2.fillRect(0, 0, 888, 80);
+        g2.setColor(Color.BLACK);
+        g2.drawRect(0, 0, 888, 80);
         // 画玩家，大小也用A定义的那个
         g.setColor(Color.BLUE);
         g.fillRect(p1.getX(), p1.getY(), GameSettings.PLAYER_SIZE, GameSettings.PLAYER_SIZE);
