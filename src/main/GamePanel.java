@@ -81,9 +81,11 @@ public class GamePanel extends JPanel {
         
         g.setColor(Color.BLACK);
         g.drawLine(400, 0, 400, 600);
-        
+        //add grill
         g.setColor(GameSettings.COLOR_GRILL);
-        g.fillRect(350, 200, 100, 150);
+        g.fillRect(200, 250, 488, 200);
+        g.setColor(Color.BLACK);
+        g.drawRect(200, 250, 488, 200);
         
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, 888, 80);
