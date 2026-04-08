@@ -4,7 +4,7 @@ public class Patty {
     private String type;
     private int x, y;
     private int slot;
-    private int cookingProgress = 0; // 0:生, 100:熟
+    private int cookingProgress = 0; 
 
     public Patty(String type, int x, int y, int slot) {
         this.type = type;
@@ -12,7 +12,6 @@ public class Patty {
         this.y = y;
         this.slot = slot;
     }
- // 在 Patty 类里增加这两个方法，GamePanel 才能读到坐标
     public int getX() {
         return x;
     }
@@ -21,8 +20,14 @@ public class Patty {
         return y;
     }
     public void cook() {
-        if (cookingProgress < 100) cookingProgress++;
+        if (cookingProgress < 100)
+        cookingProgress++;
     }
 
-    public int getSlot() { return slot; }
+    public int getSlot() { 
+    	return slot; 
+    	}
+    public int getProgress() { 
+    	return cookingProgress;
+    	}
 }
