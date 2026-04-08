@@ -11,6 +11,7 @@ public class GamePanel extends JPanel {
     // 两个玩家
     Player p1 = new Player("Player1", 150, 300);
     Player p2 = new Player("Player2", 600, 300);
+    private Grill grill = new Grill();
 
     boolean w, s, a, d;
     boolean up, down, left, right;
@@ -91,6 +92,11 @@ public class GamePanel extends JPanel {
         g.fillRect(0, 0, 888, 80);
         g.setColor(Color.BLACK);
         g.drawRect(0, 0, 888, 80);
+        g.setColor(new Color(139, 69, 19)); 
+        for (Patty p :grill.getPattiesOnGrill()) {
+            // 从 Patty 对象里获取它的 x, y 坐标
+            g.fillOval(p.getX(), p.getY(), 30, 30);
+        }
 
         // 画玩家，大小也用A定义的那个
         g.setColor(Color.BLUE);
