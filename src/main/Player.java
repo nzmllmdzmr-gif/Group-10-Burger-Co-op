@@ -3,7 +3,7 @@ package main;
 public class Player {
 	private int x, y;
     private final int speed = 5;
-    private final String id; // "Player1" 或 "Player2"
+    private final String id; // "Player1"or"Player2"
 
     public Player(String id, int startX, int startY) {
         this.id = id;
@@ -15,7 +15,7 @@ public class Player {
     public int getX() { return x; }
     public int getY() { return y; }
     public String getId() { return id; }
-    //控制移动范围
+    //control move size
     public void move(int dx, int dy) {
         int nextX = this.x + (dx * speed);
         int nextY = this.y + (dy * speed);
@@ -23,8 +23,20 @@ public class Player {
         if (nextX >= 0 && nextX <= 800 - 30) {
             this.x = nextX;
         }
-        if (nextY >= 0 && nextY <= 600 - 60) { // 减60是为了避开标题栏
+        if (nextY >= 0 && nextY <= 600 - 60) { //for not touch the title
             this.y = nextY;
         }
+    }
+    // record what handled by player，for example "Nothing"
+    private String heldItem = "Nothing"; 
+
+    // set the thing on hand
+    public void setHeldItem(String item) {
+        this.heldItem = item;
+    }
+
+    // check what in hand
+    public String getHeldItem() {
+        return this.heldItem;
     }
 }
