@@ -7,33 +7,32 @@ public class PlayerTest {
 
     @org.junit.jupiter.api.Test
     public void test1() {
-        // 测Player初始位置
-        System.out.println("正在开始测试1...");
+        //Player初始位置 the original set of player
+        System.out.println("check for 1");
         Player p = new Player("test1", 100, 100);
         
-        //
         assertEquals(100, p.getX());
         assertEquals(100, p.getY());
-        System.out.println("测试1过掉了，坐标没问题。");
+        System.out.println("set is ok");
     }
 
     @org.junit.jupiter.api.Test
     public void testMove() {
-        // 移动逻辑
-        System.out.println("正在测试移动...");
+        // 移动逻辑move logic
+        System.out.println("test for move");
         Player p = new Player("test2", 200, 200);
         
-        // 右
+        // 右right
         p.move(1, 0); 
         
-        // 下
+        // 下down
         p.move(0, 1);
         assertEquals(205, p.getY());
     }
 
     @org.junit.jupiter.api.Test
     public void testId() {
-        // 测试
+        // 测试test
         Player p = new Player("Chef007", 50, 50);
         assertEquals("Chef007", p.getId());
     }
@@ -45,7 +44,7 @@ public class PlayerTest {
         int grillHeight = 200;
 
       
-        assertEquals(688, grillX + grillWidth, "大铁板右边界应为688");
-        assertTrue(grillX < 400 && (grillX + grillWidth) > 400, "大铁板必须横跨左右两个校区");
+        assertEquals(688, grillX + grillWidth, "plate boundary");
+        assertTrue(grillX < 400 && (grillX + grillWidth) > 400, "boundary should across two areas");
     }
 }
