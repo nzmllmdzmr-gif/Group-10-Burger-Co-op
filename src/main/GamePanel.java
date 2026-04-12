@@ -9,6 +9,11 @@ import java.util.Iterator;
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel {
 	
+	//把计数板实体化一下make zihan zhangs' entity,make the scoreboard entity
+	private ScoreManager scoreManager = new ScoreManager(); 
+	private Order currentOrder = new Order("Steak", 20); //make a task for steak
+	private int t = 0;
+
     // two player
     Player p1 = new Player("Player1", 150, 300);
     Player p2 = new Player("Player2", 600, 300);
@@ -80,6 +85,17 @@ public class GamePanel extends JPanel {
                 
                 grill.update(); 
                 
+                //the timer
+                t++;
+                if (t >= 60) { 
+                    currentOrder.reduceTime();
+                    if (currentOrder.isExpired()) {
+                        scoreManager.deductTimeoutScore();
+                        currentOrder = new Order("Steak", 20);
+                    }
+                    t = 0;
+                }
+                
                 if (messageTimer > 0) messageTimer--;
                 else warningMessage = "";
 
@@ -92,6 +108,14 @@ public class GamePanel extends JPanel {
     }
 
     private void handleInteraction(Player p) {
+        //only if player handle the well donw steak and near the deliver area
+        if (p.getHeldItem().equals("CookedSteak") && p.getX() > 750) {
+            scoreManager.addSteakScore();
+            currentOrder = new Order("Steak", 20);
+            p.setHeldItem("Nothing");
+            return; 
+        }
+
         if (p.getHeldItem().equals("Nothing")) {
             Iterator<Patty> it = grill.getPattiesOnGrill().iterator();
             while (it.hasNext()) {
@@ -115,10 +139,12 @@ public class GamePanel extends JPanel {
         }
     }
 
+    //画图的地方！！！for drawing the panel
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-  
+        
+        //the below is not the food area
         g.setColor(GameSettings.COLOR_COOKING);
         g.fillRect(0, 0, 400, 600);
         g.setColor(GameSettings.COLOR_ASSEMBLY);
@@ -132,7 +158,24 @@ public class GamePanel extends JPanel {
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, 888, 80);
         g.setColor(Color.BLACK);
-        g.drawRect(0, 0, 888, 80);
+        g.drawRect(0, 0, 888, 80);        
+
+        //draw area for deliver the food画一个出餐口
+        g.setColor(Color.GREEN);
+        g.fillRect(800, 200, 88, 150); 
+        g.setColor(Color.WHITE);
+        g.drawString("GOAL", 820, 280);
+
+        //draw a area for getting task画个任务窗口
+        g.setColor(new Color(255, 255, 255, 200)); 
+        g.fillRoundRect(20, 90, 160, 60, 10, 10);
+        g.setColor(Color.BLACK);
+        g.drawString("ORDER: " + currentOrder.getFoodName(), 30, 115);
+        g.drawString("TIME: " + currentOrder.getTimeLeft() + "s", 30, 135);
+
+        //draw the score area画右上角的计数点
+        g.setFont(new Font("Arial", Font.BOLD, 20));
+        g.drawString("SCORE: " + scoreManager.getScore(), 720, 40);
         
         for (Patty p : grill.getPattiesOnGrill()) {
             BufferedImage currentImg = (p.getProgress() >= 100) ? cookedSteakImg : rawSteakImg;
