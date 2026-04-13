@@ -9,14 +9,14 @@ public class MainBgm {
 //main bgm for the whole game游戏主背景音
     public void playMusic() {
         try {
-            URL url = getClass().getResource("/mainbgm.wav");
+            URL url = getClass().getResource("/MainBgm.wav");
             AudioInputStream ais = AudioSystem.getAudioInputStream(url);
             bgmClip = AudioSystem.getClip();
             bgmClip.open(ais);
             bgmClip.loop(Clip.LOOP_CONTINUOUSLY);
             bgmClip.start();
         } catch (Exception e) {
-            System.out.println("BGM Error");
+            System.out.println("MainBGM Error");
         }
     }
 }
