@@ -13,8 +13,12 @@ public class GamePanel extends JPanel {
 	private ScoreManager scoreManager = new ScoreManager(); 
 	private Order currentOrder = new Order("Steak", 20); //make a task for steak
 	private int t = 0;
+	
+	//the bgm
+	private MainBgm bgm = new MainBgm();
+	private SteakBgm steakBgm = new SteakBgm();
 
-    // two player
+    //two player
     Player p1 = new Player("Player1", 150, 300);
     Player p2 = new Player("Player2", 600, 300);
     private Grill grill = new Grill();
@@ -85,6 +89,13 @@ public class GamePanel extends JPanel {
                 
                 grill.update(); 
                 
+                //check if have the steak
+                if (grill.getPattiesOnGrill().size() > 0) {
+                    steakBgm.startSizzle();
+                } else {
+                    steakBgm.stopSizzle();
+                }
+                
                 //the timer
                 t++;
                 if (t >= 60) { 
@@ -104,6 +115,10 @@ public class GamePanel extends JPanel {
         });
         grill.placePatty(0, "Beef");
         grill.placePatty(1, "Beef");
+        
+        //play the mainbgm
+        bgm.playMusic();
+        
         timer.start();
     }
 
