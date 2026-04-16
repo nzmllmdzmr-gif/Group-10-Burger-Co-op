@@ -9,7 +9,7 @@ public class SteakBgm {
     public void startSizzle() {
         try {
             if (sizzleClip == null) {
-                URL url = getClass().getResource("/SteakBgm.wav");
+                URL url = getClass().getResource("/res/SteakBgm.wav");
                 AudioInputStream ais = AudioSystem.getAudioInputStream(url);
                 sizzleClip = AudioSystem.getClip();
                 sizzleClip.open(ais);
