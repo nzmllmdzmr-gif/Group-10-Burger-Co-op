@@ -58,7 +58,7 @@ public class GamePanel extends JPanel {
                 // P1 spacekey
                 if (key == KeyEvent.VK_SPACE) handleInteraction(p1);
                 // P2 Shiftkay
-                if (key == KeyEvent.VK_SHIFT) handleInteraction(p2);
+                if (key == KeyEvent.VK_ENTER) handleInteraction(p2);
             }
 
             public void keyReleased(KeyEvent e) {
@@ -159,36 +159,36 @@ public class GamePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        //the below is not the food area
-        g.setColor(GameSettings.COLOR_COOKING);
-        g.fillRect(0, 0, 400, 600);
-        g.setColor(GameSettings.COLOR_ASSEMBLY);
-        g.fillRect(400, 0, 488, 600);
+        g.setColor(new Color(200, 200, 200)); 
+        g.fillRect(0, 80, 150, 520); 
         g.setColor(Color.BLACK);
-        g.drawLine(400, 0, 400, 600);
-        g.setColor(GameSettings.COLOR_GRILL);
-        g.fillRect(200, 250, 488, 200);
-        g.setColor(Color.BLACK);
-        g.drawRect(200, 250, 488, 200);
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, 888, 80);
-        g.setColor(Color.BLACK);
-        g.drawRect(0, 0, 888, 80);        
+        g.drawRect(0, 80, 150, 520);
+        g.drawString("RAW BIN", 45, 300);
+        g.setColor(GameSettings.COLOR_COOKING); 
+        g.fillRect(150, 80, 650, 520); 
+    
+        int bevX = 650; 
+        int bevY = 480; 
+        int bevWidth = 120; 
+        int bevHeight = 100;
 
-        //draw area for deliver the food画一个出餐口
-        g.setColor(Color.GREEN);
-        g.fillRect(800, 200, 88, 150); 
-        g.setColor(Color.WHITE);
-        g.drawString("GOAL", 820, 280);
-
-        //draw a area for getting task画个任务窗口
+        g.setColor(new Color(173, 216, 230)); 
+        g.fillRect(bevX, bevY, bevWidth, bevHeight); 
+        g.setColor(Color.BLACK);
+        g.drawRect(bevX, bevY, bevWidth, bevHeight);
+        g.setFont(new Font("Arial", Font.BOLD, 12));
+        g.drawString("COLA", bevX + 40, bevY + 55);
+    
+        g.setColor(GameSettings.COLOR_GRILL); 
+        g.fillRect(230, 260, 320, 200); 
+        g.setColor(Color.BLACK);
+        g.drawRect(230, 260, 320, 200);
         g.setColor(new Color(255, 255, 255, 200)); 
         g.fillRoundRect(20, 90, 160, 60, 10, 10);
         g.setColor(Color.BLACK);
         g.drawString("ORDER: " + currentOrder.getFoodName(), 30, 115);
         g.drawString("TIME: " + currentOrder.getTimeLeft() + "s", 30, 135);
 
-        //draw the score area画右上角的计数点
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.drawString("SCORE: " + scoreManager.getScore(), 720, 40);
         
