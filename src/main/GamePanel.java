@@ -160,13 +160,22 @@ public class GamePanel extends JPanel {
         super.paintComponent(g);
         
         g.setColor(new Color(200, 200, 200)); 
-        g.fillRect(0, 80, 150, 520); 
+        g.fillRect(0, 80, 165, 520); 
         g.setColor(Color.BLACK);
-        g.drawRect(0, 80, 150, 520);
-        g.drawString("RAW BIN", 45, 300);
-        g.setColor(GameSettings.COLOR_COOKING); 
-        g.fillRect(150, 80, 650, 520); 
-    
+        g.drawRect(0, 80, 165, 520);
+
+        g.setColor(new Color(180, 180, 180));
+        g.fillRect(5, 85, 155, 250); 
+        g.setColor(Color.BLACK);
+        g.drawRect(5, 85, 155, 250);
+        g.drawString("RAW BURGER", 40, 210);
+
+        g.setColor(new Color(180, 180, 180));
+        g.fillRect(5, 345, 155, 250); 
+        g.setColor(Color.BLACK);
+        g.drawRect(5, 345, 155, 250);
+        g.drawString("RAW STEAK", 45, 470);
+        
         int bevX = 650; 
         int bevY = 480; 
         int bevWidth = 120; 
