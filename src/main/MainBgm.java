@@ -9,7 +9,7 @@ public class MainBgm {
 //main bgm for the whole game游戏主背景音
     public void playMusic() {
         try {
-            URL url = getClass().getResource("/res/MainBgm.wav");
+            URL url = getClass().getResource("/main/MainBgm.wav");
             AudioInputStream ais = AudioSystem.getAudioInputStream(url);
             bgmClip = AudioSystem.getClip();
             bgmClip.open(ais);

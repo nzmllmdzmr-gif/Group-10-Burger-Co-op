@@ -9,22 +9,28 @@ public class SteakBgm {
     public void startSizzle() {
         try {
             if (sizzleClip == null) {
-                URL url = getClass().getResource("/res/SteakBgm.wav");
+                URL url = getClass().getResource("/main/SteakBgm.wav"); 
+                if (url == null) {
+                
+                    System.out.println("Error");
+                    return;
+                }
                 AudioInputStream ais = AudioSystem.getAudioInputStream(url);
                 sizzleClip = AudioSystem.getClip();
                 sizzleClip.open(ais);
             }
-            //no replay,the bgm is long enough
+            
             if (!sizzleClip.isRunning()) {
                 sizzleClip.setFramePosition(0);
                 sizzleClip.start();
             }
         } catch (Exception e) {
-            System.out.println("Steak sizzle Error");
+            e.printStackTrace(); 
         }
+        
     }
-
     public void stopSizzle() {
+        
         if (sizzleClip != null && sizzleClip.isRunning()) {
             sizzleClip.stop();
         }

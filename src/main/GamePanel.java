@@ -177,11 +177,17 @@ public class GamePanel extends JPanel {
                 double dist = Math.sqrt(Math.pow(p.getX() - patty.getX(), 2) + Math.pow(p.getY() - patty.getY(), 2));
                 
                 if (dist < 80) { 
-                    if (patty.getProgress() >= 100) {
-                        p.setHeldItem("CookedSteak");
-                        warningMessage = "Got it!";
-                        it.remove(); 
-                    } else {
+                	if (patty.getProgress() >= 100) {
+
+                	    if (patty.getType().equals("RawBurger")) {
+                	        p.setHeldItem("CookedBurger");
+                	    } else if (patty.getType().equals("RawSteak")) {
+                	        p.setHeldItem("CookedSteak");
+                	    }
+
+                	    warningMessage = "Got it!";
+                	    it.remove();
+                	}else {
                         warningMessage = "Wait! It's still raw!";
                     }
                     messageTimer = 50;
