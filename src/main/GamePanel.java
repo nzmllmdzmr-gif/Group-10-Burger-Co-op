@@ -5,13 +5,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.util.Iterator; 
+import java.util.List; 
 // panel
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel {
 	
 	//把计数板实体化一下make zihan zhangs' entity,make the scoreboard entity
 	private ScoreManager scoreManager = new ScoreManager(); 
-	private Order currentOrder = new Order("Steak", 20); //make a task for steak
 	private int t = 0;
 	
 	//the bgm
@@ -35,6 +35,8 @@ public class GamePanel extends JPanel {
 
     boolean w, s, a, d;
     boolean up, down, left, right;
+    
+    private OrderManager orderManager = new OrderManager();
 
     public GamePanel() {
         this.setFocusable(true);
@@ -57,7 +59,7 @@ public class GamePanel extends JPanel {
 
                 // P1 spacekey
                 if (key == KeyEvent.VK_SPACE) handleInteraction(p1);
-                // P2 Shiftkay
+                // P2 enterkey
                 if (key == KeyEvent.VK_ENTER) handleInteraction(p2);
             }
 
@@ -98,12 +100,21 @@ public class GamePanel extends JPanel {
                 
                 //the timer
                 t++;
-                if (t >= 60) { 
-                    currentOrder.reduceTime();
-                    if (currentOrder.isExpired()) {
-                        scoreManager.deductTimeoutScore();
-                        currentOrder = new Order("Steak", 20);
+                if (t >= 60) {
+
+                    for (int i = 0; i < orderManager.getOrders().size(); i++) {
+                        Order o = orderManager.getOrders().get(i);
+
+                        o.reduceTime();
+
+                        if (o.isExpired()) {
+                            scoreManager.deductTimeoutScore();
+                            orderManager.getOrders().remove(i);
+                            orderManager.generateOrder();
+                            i--; // 防止跳过元素
+                        }
                     }
+
                     t = 0;
                 }
                 
@@ -113,20 +124,21 @@ public class GamePanel extends JPanel {
                 repaint(); 
             }
         });
-        grill.placePatty(0, "Beef");
-        grill.placePatty(1, "Beef");
         
         //play the mainbgm
         bgm.playMusic();
         
         timer.start();
+        for (int i = 0; i < 3; i++) {
+            orderManager.generateOrder();
+        }
     }
 
     private void handleInteraction(Player p) {
     	// pick up raw burger
     	if (p.getHeldItem().equals("Nothing")
-    	        && p.getX() >= 0 && p.getX() <= 230
-    	        && p.getY() >= 160 && p.getY() <= 540) {
+    	        && p.getX() >= 0 && p.getX() <= 165
+    	        && p.getY() >= 85 && p.getY() <= 335) {
 
     	    p.setHeldItem("RawBurger");
     	    warningMessage = "Got raw burger!";
@@ -134,34 +146,59 @@ public class GamePanel extends JPanel {
     	    return;
     	}
 
-    	// pick up raw steak
     	if (p.getHeldItem().equals("Nothing")
-    	        && p.getX() >= 0 && p.getX() <= 230
-    	        && p.getY() >= 555 && p.getY() <= 935) {
+    	        && p.getX() >= 0 && p.getX() <= 165
+    	        && p.getY() >= 345 && p.getY() <= 595) {
 
     	    p.setHeldItem("RawSteak");
     	    warningMessage = "Got raw steak!";
     	    messageTimer = 50;
     	    return;
+    	
     	}
-        //only if player handle the well donw steak and near the deliver area
-        if (p.getHeldItem().equals("CookedSteak") && p.getX() > 750) {
-            scoreManager.addSteakScore();
-            currentOrder = new Order("Steak", 20);
-            p.setHeldItem("Nothing");
-            return; 
-        }
+        //only if player handle the well down steak and near the deliver area
+    	if ((p.getHeldItem().equals("CookedSteak") || p.getHeldItem().equals("CookedBurger"))
+    	        && p.getX() > 750) {
+
+    	    String deliveredItem;
+
+    	    if (p.getHeldItem().equals("CookedSteak")) {
+    	        deliveredItem = "Steak";
+    	    } else {
+    	        deliveredItem = "Burger";
+    	    }
+
+    	    for (int i = 0; i < orderManager.getOrders().size(); i++) {
+    	        Order order = orderManager.getOrders().get(i);
+
+    	        if (order.getFoodName().equals(deliveredItem)) {
+    	            scoreManager.addSteakScore();
+    	            orderManager.getOrders().remove(i);
+    	            orderManager.generateOrder();
+
+    	            p.setHeldItem("Nothing");
+    	            warningMessage = "Order delivered!";
+    	            messageTimer = 50;
+    	            return;
+    	        }
+    	    }
+
+    	    warningMessage = "Wrong order!";
+    	    messageTimer = 50;
+    	    return;
+    	}
 
         if ((p.getHeldItem().equals("RawSteak") || p.getHeldItem().equals("RawBurger"))
                 && p.getX() > 200 && p.getX() < 580
                 && p.getY() > 200 && p.getY() < 480) {
-
+        	
+        	String food = p.getHeldItem();
             for (int i = 0; i < 6; i++) {
                 if (grill.placePatty(i, p.getHeldItem())) {
-                    p.setHeldItem("Nothing");
-                    warningMessage = "Cooking " + p.getHeldItem() + "...";
-                    messageTimer = 50;
-                    return;
+                	 p.setHeldItem("Nothing");
+                	    warningMessage = "Cooking " + food + "...";
+                	    messageTimer = 50;
+                	    return;
                 }
             }
 
@@ -225,6 +262,8 @@ public class GamePanel extends JPanel {
         int bevY = 480; 
         int bevWidth = 120; 
         int bevHeight = 100;
+        
+        g.drawString("P1 Holding: " + p1.getHeldItem(), 25, 180);
 
         g.setColor(new Color(173, 216, 230)); 
         g.fillRect(bevX, bevY, bevWidth, bevHeight); 
@@ -240,8 +279,17 @@ public class GamePanel extends JPanel {
         g.setColor(new Color(255, 255, 255, 200)); 
         g.fillRoundRect(20, 90, 160, 60, 10, 10);
         g.setColor(Color.BLACK);
-        g.drawString("ORDER: " + currentOrder.getFoodName(), 30, 115);
-        g.drawString("TIME: " + currentOrder.getTimeLeft() + "s", 30, 135);
+        List<Order> orders = orderManager.getOrders();
+
+        int startX = 30;
+        int startY = 100;
+
+        for (int i = 0; i < orders.size(); i++) {
+            Order o = orders.get(i);
+
+            g.drawString("ORDER: " + o.getFoodName(), startX, startY + i * 40);
+            g.drawString("TIME: " + o.getTimeLeft() + "s", startX, startY + i * 40 + 15);
+        }
 
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.drawString("SCORE: " + scoreManager.getScore(), 720, 40);
