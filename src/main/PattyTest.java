@@ -41,4 +41,11 @@ public class PattyTest {
        
         assertEquals(100, patty.getProgress(), "progress sholdent be 100");
     }
+
+
+    @Test
+    public void testGetType() {   
+    	Patty patty = new Patty("RawBurger", 100, 200, 1);
+    	assertEquals("RawBurger", patty.getType());
+    }
 }
