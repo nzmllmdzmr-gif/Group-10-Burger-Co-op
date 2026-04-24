@@ -131,6 +131,21 @@ public class GamePanel extends JPanel {
             return; 
         }
 
+        if (p.getX() > 200 && p.getX() < 580 && p.getY() > 200 && p.getY() < 480) {
+            
+            for (int i = 0; i < 6; i++) {
+                if (grill.placePatty(i, p.getHeldItem())) { 
+                    p.setHeldItem("Nothing"); 
+                    warningMessage = "Cooking " + p.getHeldItem() + "...";
+                    messageTimer = 50;
+                    return; 
+                }
+            }
+            warningMessage = "Grill is full!";
+            messageTimer = 50;
+            return;
+        }
+
         if (p.getHeldItem().equals("Nothing")) {
             Iterator<Patty> it = grill.getPattiesOnGrill().iterator();
             while (it.hasNext()) {
