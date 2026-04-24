@@ -30,4 +30,7 @@ public class Patty {
     public int getProgress() { 
     	return cookingProgress;
     	}
+    public String getType() {
+        return type;
+    }
 }

@@ -123,6 +123,27 @@ public class GamePanel extends JPanel {
     }
 
     private void handleInteraction(Player p) {
+    	// pick up raw burger
+    	if (p.getHeldItem().equals("Nothing")
+    	        && p.getX() >= 0 && p.getX() <= 230
+    	        && p.getY() >= 160 && p.getY() <= 540) {
+
+    	    p.setHeldItem("RawBurger");
+    	    warningMessage = "Got raw burger!";
+    	    messageTimer = 50;
+    	    return;
+    	}
+
+    	// pick up raw steak
+    	if (p.getHeldItem().equals("Nothing")
+    	        && p.getX() >= 0 && p.getX() <= 230
+    	        && p.getY() >= 555 && p.getY() <= 935) {
+
+    	    p.setHeldItem("RawSteak");
+    	    warningMessage = "Got raw steak!";
+    	    messageTimer = 50;
+    	    return;
+    	}
         //only if player handle the well donw steak and near the deliver area
         if (p.getHeldItem().equals("CookedSteak") && p.getX() > 750) {
             scoreManager.addSteakScore();
@@ -131,20 +152,23 @@ public class GamePanel extends JPanel {
             return; 
         }
 
-        if (p.getX() > 200 && p.getX() < 580 && p.getY() > 200 && p.getY() < 480) {
-            
+        if ((p.getHeldItem().equals("RawSteak") || p.getHeldItem().equals("RawBurger"))
+                && p.getX() > 200 && p.getX() < 580
+                && p.getY() > 200 && p.getY() < 480) {
+
             for (int i = 0; i < 6; i++) {
-                if (grill.placePatty(i, p.getHeldItem())) { 
-                    p.setHeldItem("Nothing"); 
+                if (grill.placePatty(i, p.getHeldItem())) {
+                    p.setHeldItem("Nothing");
                     warningMessage = "Cooking " + p.getHeldItem() + "...";
                     messageTimer = 50;
-                    return; 
+                    return;
                 }
             }
+
             warningMessage = "Grill is full!";
             messageTimer = 50;
             return;
-        }
+        } 
 
         if (p.getHeldItem().equals("Nothing")) {
             Iterator<Patty> it = grill.getPattiesOnGrill().iterator();
@@ -165,7 +189,7 @@ public class GamePanel extends JPanel {
                 }
             }
         } else {
-            p.setHeldItem("Nothing");
+            return;
         }
     }
 
