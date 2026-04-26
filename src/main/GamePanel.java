@@ -39,7 +39,7 @@ public class GamePanel extends JPanel {
     private BufferedImage blueChefWithRawSteakImg = ImageLoader.loadImage("/bluechefwithrawsteak.png");
     private BufferedImage redChefWithRawSteakImg = ImageLoader.loadImage("/redchefwithrawsteak.png");
     private BufferedImage materialsImg = ImageLoader.loadImage("/materials.png");
-    private BufferedImage deliverWindowImg = ImageLoader.loadImage("/deliverwindow.png");
+    private BufferedImage deliverWindowImg = ImageLoader.loadImage("/deliver.png");
   
     boolean w, s, a, d;
     boolean up, down, left, right;
@@ -144,8 +144,8 @@ public class GamePanel extends JPanel {
 
     private void handleInteraction(Player p) {
         if (p.getHeldItem().equals("Nothing")
-                && p.getX() >= 560 && p.getX() <= 790
-                && p.getY() >= 350 && p.getY() <= 520) {
+                && p.getX() >= 520 && p.getX() <= 850
+                && p.getY() >= 330 && p.getY() <= 560) {
 
             p.setHeldItem("Cola");
             warningMessage = "Got cola!";
@@ -154,8 +154,8 @@ public class GamePanel extends JPanel {
         }
 
         if (p.getHeldItem().equals("Cola")
-                && p.getX() >= 730 && p.getX() <= 888
-                && p.getY() >= 130 && p.getY() <= 290) {
+                && p.getX() >= 650 && p.getX() <= 888
+                && p.getY() >= 100 && p.getY() <= 330) {
 
             p.setHeldItem("Nothing");
             warningMessage = "Cola delivered!";
@@ -164,19 +164,20 @@ public class GamePanel extends JPanel {
         }
 
         if (p.getHeldItem().equals("Nothing")
-                && p.getX() >= 40 && p.getX() <= 250
-                && p.getY() >= 430 && p.getY() <= 590) {
+                && p.getX() >= 0 && p.getX() <= 330
+                && p.getY() >= 400 && p.getY() <= 610) {
 
             p.setHeldItem("RawSteak");
             warningMessage = "Got raw steak!";
             messageTimer = 50;
             return;
         }
+        
 
         //only if player handle the well down steak and near the deliver area
     	if (p.getHeldItem().equals("CookedSteak")
-    	        && p.getX() >= 730 && p.getX() <= 888
-                && p.getY() >= 130 && p.getY() <= 290) {
+    	        && p.getX() >= 650 && p.getX() <= 888
+                && p.getY() >= 100 && p.getY() <= 330) {
 
     	    String deliveredItem;
 
@@ -267,10 +268,10 @@ public class GamePanel extends JPanel {
         int bevWidth = 210; 
         int bevHeight = 210;
 
-        int deliverX = 755;
-        int deliverY = 135;
-        int deliverWidth = 115;
-        int deliverHeight = 115;
+        int deliverX = 720;
+        int deliverY = 115;
+        int deliverWidth = 150;
+        int deliverHeight = 150;
         
         g.drawString("P1 Holding: " + p1.getHeldItem(), 25, 180);
 
@@ -296,9 +297,9 @@ public class GamePanel extends JPanel {
         }
     
         g.setColor(GameSettings.COLOR_GRILL); 
-        g.fillRect(40, 160, 710, 105); 
+        g.fillRect(40, 160, 610, 105); 
         g.setColor(Color.BLACK);
-        g.drawRect(40, 160, 710, 105);
+        g.drawRect(40, 160, 610, 105);
         g.setColor(new Color(255, 255, 255, 200)); 
         g.fillRoundRect(20, 90, 160, 60, 10, 10);
         g.setColor(Color.BLACK);
