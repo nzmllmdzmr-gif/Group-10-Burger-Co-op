@@ -26,13 +26,17 @@ public class GamePanel extends JPanel {
     private String warningMessage = "";
     private int messageTimer = 0;
 
+    //图片聚集地  images
     private BufferedImage blueChefImg = ImageLoader.loadImage("/bluechef.png");
     private BufferedImage redChefImg = ImageLoader.loadImage("/redchef.png");
     private BufferedImage rawSteakImg = ImageLoader.loadImage("/rawsteak.png");
     private BufferedImage cookedSteakImg = ImageLoader.loadImage("/cookedsteak.png");
     private BufferedImage blueChefWithSteakImg = ImageLoader.loadImage("/bluechefwithsteak.png");
     private BufferedImage redChefWithSteakImg = ImageLoader.loadImage("/redchefwithsteak.png");
-
+    private BufferedImage colaMachineImg = ImageLoader.loadImage("/colamaterials.png");
+    private BufferedImage blueChefWithColaImg = ImageLoader.loadImage("/bluechefwithcola.png");
+    private BufferedImage redChefWithColaImg = ImageLoader.loadImage("/redchefwithcola.png");
+  
     boolean w, s, a, d;
     boolean up, down, left, right;
     
@@ -257,20 +261,24 @@ public class GamePanel extends JPanel {
         g.setColor(Color.BLACK);
         g.drawRect(5, 345, 155, 250);
         g.drawString("RAW STEAK", 45, 470);
-        
-        int bevX = 650; 
-        int bevY = 480; 
-        int bevWidth = 120; 
-        int bevHeight = 100;
+
+        int bevX = 620; 
+        int bevY = 430; 
+        int bevWidth = 200; 
+        int bevHeight = 200;
         
         g.drawString("P1 Holding: " + p1.getHeldItem(), 25, 180);
 
-        g.setColor(new Color(173, 216, 230)); 
-        g.fillRect(bevX, bevY, bevWidth, bevHeight); 
-        g.setColor(Color.BLACK);
-        g.drawRect(bevX, bevY, bevWidth, bevHeight);
-        g.setFont(new Font("Arial", Font.BOLD, 12));
-        g.drawString("COLA", bevX + 40, bevY + 55);
+        if (colaMachineImg != null) {
+            g.drawImage(colaMachineImg, bevX, bevY, bevWidth, bevHeight, null);
+        } else {
+            g.setColor(new Color(173, 216, 230)); 
+            g.fillRect(bevX, bevY, bevWidth, bevHeight); 
+            g.setColor(Color.BLACK);
+            g.drawRect(bevX, bevY, bevWidth, bevHeight);
+            g.setFont(new Font("Arial", Font.BOLD, 12));
+            g.drawString("COLA", bevX + 40, bevY + 55);
+        }
     
         g.setColor(GameSettings.COLOR_GRILL); 
         g.fillRect(230, 260, 320, 200); 
