@@ -36,6 +36,8 @@ public class GamePanel extends JPanel {
     private BufferedImage colaMachineImg = ImageLoader.loadImage("/colamaterials.png");
     private BufferedImage blueChefWithColaImg = ImageLoader.loadImage("/bluechefwithcola.png");
     private BufferedImage redChefWithColaImg = ImageLoader.loadImage("/redchefwithcola.png");
+    private BufferedImage blueChefWithRawSteakImg = ImageLoader.loadImage("/bluechefwithrawsteak.png");
+    private BufferedImage redChefWithRawSteakImg = ImageLoader.loadImage("/redchefwithrawsteak.png");
     private BufferedImage materialsImg = ImageLoader.loadImage("/materials.png");
     private BufferedImage deliverWindowImg = ImageLoader.loadImage("/deliverwindow.png");
   
@@ -161,32 +163,20 @@ public class GamePanel extends JPanel {
             return;
         }
 
-    	// pick up raw burger
-        /*
-    	if (p.getHeldItem().equals("Nothing")
-    	        && p.getX() >= 445 && p.getX() <= 888
-    	        && p.getY() >= 410 && p.getY() <= 630) {
+        if (p.getHeldItem().equals("Nothing")
+                && p.getX() >= 40 && p.getX() <= 250
+                && p.getY() >= 430 && p.getY() <= 590) {
 
-    	    p.setHeldItem("RawBurger");
-    	    warningMessage = "Got raw burger!";
-    	    messageTimer = 50;
-    	    return;
-    	}
+            p.setHeldItem("RawSteak");
+            warningMessage = "Got raw steak!";
+            messageTimer = 50;
+            return;
+        }
 
-    	if (p.getHeldItem().equals("Nothing")
-    	        && p.getX() >= 0 && p.getX() <= 444
-    	        && p.getY() >= 410 && p.getY() <= 630) {
-
-    	    p.setHeldItem("RawSteak");
-    	    warningMessage = "Got raw steak!";
-    	    messageTimer = 50;
-    	    return;
-    	
-    	}
-        */
         //only if player handle the well down steak and near the deliver area
-    	if ((p.getHeldItem().equals("CookedSteak") || p.getHeldItem().equals("CookedBurger"))
-    	        && p.getX() > 750) {
+    	if (p.getHeldItem().equals("CookedSteak")
+    	        && p.getX() >= 730 && p.getX() <= 888
+                && p.getY() >= 130 && p.getY() <= 290) {
 
     	    String deliveredItem;
 
@@ -211,12 +201,13 @@ public class GamePanel extends JPanel {
     	        }
     	    }
 
-    	    warningMessage = "Wrong order!";
+            p.setHeldItem("Nothing");
+    	    warningMessage = "Steak delivered!";
     	    messageTimer = 50;
     	    return;
     	}
 
-    	if ((p.getHeldItem().equals("RawSteak") || p.getHeldItem().equals("RawBurger"))
+    	if (p.getHeldItem().equals("RawSteak")
     	        && p.getX() > 40 && p.getX() < 750
     	        && p.getY() > 160 && p.getY() < 275) {
         	
@@ -241,12 +232,10 @@ public class GamePanel extends JPanel {
                 Patty patty = it.next();
                 double dist = Math.sqrt(Math.pow(p.getX() - patty.getX(), 2) + Math.pow(p.getY() - patty.getY(), 2));
                 
-                if (dist < 80) { 
+                if (dist < 130) { 
                 	if (patty.getProgress() >= 100) {
 
-                	    if (patty.getType().equals("RawBurger")) {
-                	        p.setHeldItem("CookedBurger");
-                	    } else if (patty.getType().equals("RawSteak")) {
+                	    if (patty.getType().equals("RawSteak")) {
                 	        p.setHeldItem("CookedSteak");
                 	    }
 
@@ -340,7 +329,9 @@ public class GamePanel extends JPanel {
         //p1p2dont change
         if (p1.getHeldItem().equals("Cola") && blueChefWithColaImg != null) {
             g.drawImage(blueChefWithColaImg, p1.getX(), p1.getY(), 110, 110, null);
-        } else if ((p1.getHeldItem().equals("CookedSteak") || p1.getHeldItem().equals("CookedBurger")) && blueChefWithSteakImg != null) {
+        } else if (p1.getHeldItem().equals("RawSteak") && blueChefWithRawSteakImg != null) {
+            g.drawImage(blueChefWithRawSteakImg, p1.getX(), p1.getY(), 110, 110, null);
+        } else if (p1.getHeldItem().equals("CookedSteak") && blueChefWithSteakImg != null) {
             g.drawImage(blueChefWithSteakImg, p1.getX(), p1.getY(), 110, 110, null);
         } else if (blueChefImg != null) {
             g.drawImage(blueChefImg, p1.getX(), p1.getY(), 110, 110, null);
@@ -348,7 +339,9 @@ public class GamePanel extends JPanel {
         
         if (p2.getHeldItem().equals("Cola") && redChefWithColaImg != null) {
             g.drawImage(redChefWithColaImg, p2.getX(), p2.getY(), 110, 110, null);
-        } else if ((p2.getHeldItem().equals("CookedSteak") || p2.getHeldItem().equals("CookedBurger")) && redChefWithSteakImg != null) {
+        } else if (p2.getHeldItem().equals("RawSteak") && redChefWithRawSteakImg != null) {
+            g.drawImage(redChefWithRawSteakImg, p2.getX(), p2.getY(), 110, 110, null);
+        } else if (p2.getHeldItem().equals("CookedSteak") && redChefWithSteakImg != null) {
             g.drawImage(redChefWithSteakImg, p2.getX(), p2.getY(), 110, 110, null);
         } else if (redChefImg != null) {
             g.drawImage(redChefImg, p2.getX(), p2.getY(), 110, 110, null);
