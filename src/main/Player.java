@@ -20,10 +20,10 @@ public class Player {
         int nextX = this.x + (dx * speed);
         int nextY = this.y + (dy * speed);
         
-        if (nextX >= 0 && nextX <= 800 - 30) {
+        if (nextX >= 0 && nextX <= 800 - 110) {
             this.x = nextX;
         }
-        if (nextY >= 0 && nextY <= 600 - 60) { //for not touch the title
+        if (nextY >= 260 && nextY <= 600 - 120) {
             this.y = nextY;
         }
     }

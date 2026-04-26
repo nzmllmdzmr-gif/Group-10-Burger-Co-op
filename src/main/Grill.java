@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Grill {
     // Creat 6 slots
-    private int[][] slots = {
-    		{250, 280}, {350, 280}, {450, 280}, 
-    	    {250, 350}, {350, 350}, {450, 350}
+	private int[][] slots = {
+			{70, 180}, {190, 180}, {310, 180}, 
+		    {430, 180}, {550, 180}, {670, 180}
     };
     // store
     private List<Patty> pattiesOnGrill = new ArrayList<>(); 
