@@ -170,8 +170,31 @@ public class GamePanel extends JPanel {
                 && p.getX() >= 650 && p.getX() <= 888
                 && p.getY() >= 100 && p.getY() <= 330) {
 
+            String deliveredItem = "Cola";
+
+            for (int i = 0; i < orderManager.getOrders().size(); i++) {
+                Order order = orderManager.getOrders().get(i);
+
+                if (order.getFoodName().contains(deliveredItem)) {
+                    order.getFoodName().remove(deliveredItem);
+
+                    p.setHeldItem("Nothing");
+                    warningMessage = "Cola delivered!";
+                    messageTimer = 50;
+
+                    if (order.getFoodName().size() == 0) {
+                        scoreManager.addMoney();
+                        orderManager.getOrders().remove(i);
+                        orderManager.generateOrder();
+                        warningMessage = "Order finished!";
+                    }
+
+                    return;
+                }
+            }
+
             p.setHeldItem("Nothing");
-            warningMessage = "Cola delivered!";
+            warningMessage = "Wrong order!";
             messageTimer = 50;
             return;
         }
@@ -191,14 +214,20 @@ public class GamePanel extends JPanel {
     	    for (int i = 0; i < orderManager.getOrders().size(); i++) {
     	        Order order = orderManager.getOrders().get(i);
 
-    	        if (order.getFoodName().equals(deliveredItem)) {
-    	        	scoreManager.addMoney();
-    	            orderManager.getOrders().remove(i);
-    	            orderManager.generateOrder();
+    	        if (order.getFoodName().contains(deliveredItem)) {
+    	            order.getFoodName().remove(deliveredItem);
 
     	            p.setHeldItem("Nothing");
-    	            warningMessage = "Order delivered!";
+    	            warningMessage = deliveredItem + " delivered!";
     	            messageTimer = 50;
+
+    	            if (order.getFoodName().size() == 0) {
+    	                scoreManager.addMoney();
+    	                orderManager.getOrders().remove(i);
+    	                orderManager.generateOrder();
+    	                warningMessage = "Order finished!";
+    	            }
+
     	            return;
     	        }
     	    }
