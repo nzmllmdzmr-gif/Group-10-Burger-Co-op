@@ -20,14 +20,16 @@ public class PlayerTest {
     public void testMove() {
         // 移动逻辑move logic
         System.out.println("test for move");
-        Player p = new Player("test2", 200, 200);
+        Player p = new Player("test2", 200, 300);
         
         // 右right
         p.move(1, 0); 
         
         // 下down
         p.move(0, 1);
-        assertEquals(205, p.getY());
+
+        assertEquals(205, p.getX());
+        assertEquals(305, p.getY());
     }
 
     @org.junit.jupiter.api.Test

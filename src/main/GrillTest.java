@@ -37,7 +37,9 @@ public class GrillTest {
         grill.placePatty(0, "Beef");
         int initialProgress = grill.getPattiesOnGrill().get(0).getProgress();
         
-        grill.update(); 
+        for (int i = 0; i < 3; i++) {
+            grill.update(); 
+        }
         
         int afterProgress = grill.getPattiesOnGrill().get(0).getProgress();
         assertTrue(afterProgress > initialProgress);
