@@ -19,7 +19,7 @@ public class IntroPanel extends JPanel {
 
         //loading images
         for (int i = 0; i < totalFrames; i++) {
-            String path = String.format("/intro/ezgif.frame-%03d.png", i + 1);
+        	String path = String.format("/ezgif-frame-%03d.png", i + 1);
             frames[i] = ImageLoader.loadImage(path);
 
             //display if not success
