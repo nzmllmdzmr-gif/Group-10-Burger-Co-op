@@ -74,9 +74,9 @@ public class GamePanel extends JPanel {
                 if (key == KeyEvent.VK_RIGHT) right = true;
 
                 // P1 enterkey
-                if (key == KeyEvent.VK_ENTER) handleInteraction(p1);
+                if (key == KeyEvent.VK_SPACE) handleInteraction(p1);
                 // P2 spacekey
-                if (key == KeyEvent.VK_SPACE) handleInteraction(p2);
+                if (key == KeyEvent.VK_ENTER) handleInteraction(p2);
             }
 
             public void keyReleased(KeyEvent e) {
