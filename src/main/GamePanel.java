@@ -11,7 +11,7 @@ import java.util.List;
 public class GamePanel extends JPanel {
 	
 	//把计数板实体化一下make zihan zhangs' entity,make the scoreboard entity
-	private ScoreManager scoreManager = new ScoreManager(); 
+	private MoneyManager scoreManager = new MoneyManager(); 
 	private int t = 0;
 	
 	//the bgm
