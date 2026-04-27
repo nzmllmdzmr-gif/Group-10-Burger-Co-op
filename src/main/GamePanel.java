@@ -148,6 +148,11 @@ public class GamePanel extends JPanel {
         for (int i = 0; i < 3; i++) {
             orderManager.generateOrder();
         }
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                GamePanel.this.requestFocusInWindow();
+            }
+        });
     }
 
     private void handleInteraction(Player p) {
