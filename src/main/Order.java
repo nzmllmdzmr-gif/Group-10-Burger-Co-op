@@ -1,10 +1,11 @@
 package main;
+import java.util.List;
 
 public class Order {
-    private String foodName;
+    private List<String> foodName;
     private int timeLeft;
 
-    public Order(String foodName, int timeLeft) {
+    public Order(List<String> foodName, int timeLeft) {
         this.foodName = foodName;
         this.timeLeft = timeLeft;
     }
@@ -17,7 +18,7 @@ public class Order {
     }
 
     //在左上角显示 "ORDER: Beef",show the order name on thr top of left screen
-    public String getFoodName() {
+    public List<String> getFoodName() {
         return foodName;
     }
 
@@ -30,4 +31,18 @@ public class Order {
     public boolean isExpired() {
         return timeLeft <= 0;
     }
+
+    public boolean hasFood(String food) {
+    return foodName.contains(food);
+    }
+
+    public void removeFood(String food) {
+    foodName.remove(food);
+    }
+
+
+    public boolean isFinished() {
+    return foodName.size() == 0;
+    }
+  
 }
