@@ -5,6 +5,7 @@ public class Patty {
     private int x, y;
     private int slot;
     private int cookingProgress = 0; 
+    private int cookTimer = 0;
 
     public Patty(String type, int x, int y, int slot) {
         this.type = type;
@@ -20,8 +21,13 @@ public class Patty {
         return y;
     }
     public void cook() {
-        if (cookingProgress < 100)
-        cookingProgress++;
+        if (cookingProgress < 100) {
+            cookTimer++;
+            if (cookTimer >= 3) {
+                cookingProgress++;
+                cookTimer = 0;
+            }
+        }
     }
 
     public int getSlot() { 
