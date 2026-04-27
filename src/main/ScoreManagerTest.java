@@ -24,4 +24,4 @@ public class ScoreManagerTest {
         //check if final score is 20
         assertEquals(20, sm.getScore(), "should be 20 after twice add");
     }
-}
+} 
