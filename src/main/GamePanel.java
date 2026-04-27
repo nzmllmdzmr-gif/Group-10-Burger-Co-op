@@ -48,7 +48,8 @@ public class GamePanel extends JPanel {
     private BufferedImage materialsImg = ImageLoader.loadImage("/materials.png");
     private BufferedImage deliverWindowImg = ImageLoader.loadImage("/deliver.png");
     private BufferedImage moneyBoardImg = ImageLoader.loadImage("/moneyboard.png");
-  
+    private BufferedImage bgImg = ImageLoader.loadImage("/kitchen_bg.png");
+    
     boolean w, s, a, d;
     boolean up, down, left, right;
     
@@ -341,11 +342,11 @@ public class GamePanel extends JPanel {
 
         return nearestSlot;
     }
-
     //画图的地方！！！for drawing the panel
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        g.drawImage(bgImg, 0, 0, getWidth(), getHeight(), null);
 
         if (moneyBoardImg != null) {
         	
