@@ -261,11 +261,15 @@ public class GamePanel extends JPanel {
         super.paintComponent(g);
 
         if (moneyBoardImg != null) {
-            g.drawImage(moneyBoardImg, 319, 10, 250, 90, null);
+        	g.drawImage(moneyBoardImg, 244, 5, 400, 185, null);
         }
+        
+        g.setFont(new Font("Arial", Font.BOLD, 30));
+        g.setColor(new Color(90, 55, 20));
+        g.drawString("$" + scoreManager.getMoney(), 390, 105);
 
         if (materialsImg != null) {
-            g.drawImage(materialsImg, 40, 460, 470, 115, null);
+        	g.drawImage(materialsImg, 25, 440, 588, 144, null);
         }
 
         int bevX = 630; 
@@ -277,8 +281,6 @@ public class GamePanel extends JPanel {
         int deliverY = 115;
         int deliverWidth = 150;
         int deliverHeight = 150;
-        
-        g.drawString("P1 Holding: " + p1.getHeldItem(), 25, 180);
 
         if (colaMachineImg != null) {
             g.drawImage(colaMachineImg, bevX, bevY, bevWidth, bevHeight, null);
@@ -319,9 +321,6 @@ public class GamePanel extends JPanel {
             g.drawString("ORDER: " + o.getFoodName(), startX, startY + i * 40);
             g.drawString("TIME: " + o.getTimeLeft() + "s", startX, startY + i * 40 + 15);
         }
-
-        g.setFont(new Font("Arial", Font.BOLD, 20));
-        g.drawString("MONEY: " + scoreManager.getMoney(), 720, 40);
         
         for (Patty p : grill.getPattiesOnGrill()) {
             BufferedImage currentImg = (p.getProgress() >= 100) ? cookedSteakImg : rawSteakImg;
@@ -361,7 +360,7 @@ public class GamePanel extends JPanel {
 
         g.setColor(Color.BLACK);
         g.setFont(new Font("Arial", Font.PLAIN, 12));
-        g.drawString("P1 Holding: " + p1.getHeldItem(), 20, 100);
-        g.drawString("P2 Holding: " + p2.getHeldItem(), 700, 100);
+        g.drawString("P1 Holding: " + p1.getHeldItem(), 20, 650);
+        g.drawString("P2 Holding: " + p2.getHeldItem(), 700, 650);
     }
 }
