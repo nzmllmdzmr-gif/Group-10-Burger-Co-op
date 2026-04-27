@@ -263,13 +263,16 @@ public class GamePanel extends JPanel {
     	        && p.getY() > 160 && p.getY() < 275) {
         	
         	String food = p.getHeldItem();
-            for (int i = 0; i < 6; i++) {
-                if (grill.placePatty(i, p.getHeldItem())) {
-                	 p.setHeldItem("Nothing");
-                	    warningMessage = "Cooking " + food + "...";
-                	    messageTimer = 50;
-                	    return;
-                }
+        	
+        	//chy part
+        	int slot = getNearestEmptySlot(p.getX(), p.getY());
+        	
+        	//chy part
+            if (slot != -1 && grill.placePatty(slot, p.getHeldItem())) {
+            	 p.setHeldItem("Nothing");
+            	    warningMessage = "Cooking " + food + "...";
+            	    messageTimer = 50;
+            	    return;
             }
 
             warningMessage = "Grill is full!";
@@ -304,6 +307,39 @@ public class GamePanel extends JPanel {
         } else {
             return;
         }
+    }
+
+    //chy part
+    private int getNearestEmptySlot(int playerX, int playerY) {
+        int[][] grillSlots = {
+                {70, 180}, {190, 180}, {310, 180},
+                {430, 180}, {550, 180}, {670, 180}
+        };
+
+        int nearestSlot = -1;
+        double nearestDistance = Double.MAX_VALUE;
+
+        for (int i = 0; i < grillSlots.length; i++) {
+            boolean isTaken = false;
+
+            for (Patty patty : grill.getPattiesOnGrill()) {
+                if (patty.getSlot() == i) {
+                    isTaken = true;
+                    break;
+                }
+            }
+
+            if (!isTaken) {
+                double distance = Math.sqrt(Math.pow(playerX - grillSlots[i][0], 2) + Math.pow(playerY - grillSlots[i][1], 2));
+
+                if (distance < nearestDistance) {
+                    nearestDistance = distance;
+                    nearestSlot = i;
+                }
+            }
+        }
+
+        return nearestSlot;
     }
 
     //画图的地方！！！for drawing the panel
