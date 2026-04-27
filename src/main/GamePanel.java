@@ -40,6 +40,7 @@ public class GamePanel extends JPanel {
     private BufferedImage redChefWithRawSteakImg = ImageLoader.loadImage("/redchefwithrawsteak.png");
     private BufferedImage materialsImg = ImageLoader.loadImage("/materials.png");
     private BufferedImage deliverWindowImg = ImageLoader.loadImage("/deliver.png");
+    private BufferedImage moneyBoardImg = ImageLoader.loadImage("/moneyboard.png");
   
     boolean w, s, a, d;
     boolean up, down, left, right;
@@ -116,7 +117,7 @@ public class GamePanel extends JPanel {
                         o.reduceTime();
 
                         if (o.isExpired()) {
-                            scoreManager.deductTimeoutScore();
+                        	scoreManager.deductMoney();
                             orderManager.getOrders().remove(i);
                             orderManager.generateOrder();
                             i--; // 防止跳过元素
@@ -191,7 +192,7 @@ public class GamePanel extends JPanel {
     	        Order order = orderManager.getOrders().get(i);
 
     	        if (order.getFoodName().equals(deliveredItem)) {
-    	            scoreManager.addSteakScore();
+    	        	scoreManager.addMoney();
     	            orderManager.getOrders().remove(i);
     	            orderManager.generateOrder();
 
@@ -259,6 +260,10 @@ public class GamePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        if (moneyBoardImg != null) {
+            g.drawImage(moneyBoardImg, 319, 10, 250, 90, null);
+        }
+
         if (materialsImg != null) {
             g.drawImage(materialsImg, 40, 460, 470, 115, null);
         }
@@ -316,7 +321,7 @@ public class GamePanel extends JPanel {
         }
 
         g.setFont(new Font("Arial", Font.BOLD, 20));
-        g.drawString("SCORE: " + scoreManager.getScore(), 720, 40);
+        g.drawString("MONEY: " + scoreManager.getMoney(), 720, 40);
         
         for (Patty p : grill.getPattiesOnGrill()) {
             BufferedImage currentImg = (p.getProgress() >= 100) ? cookedSteakImg : rawSteakImg;
