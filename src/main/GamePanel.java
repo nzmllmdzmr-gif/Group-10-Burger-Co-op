@@ -214,7 +214,7 @@ public class GamePanel extends JPanel {
                 && p.getY() >= 400 && p.getY() <= 610) {
 
             p.setHeldItem("RawSteak");
-            warningMessage = "Got raw steak!";
+            warningMessage = "Got Raw Steak!";
             messageTimer = 50;
             return;
         }
@@ -224,7 +224,7 @@ public class GamePanel extends JPanel {
                 && p.getY() >= 400 && p.getY() <= 610) {
 
             p.setHeldItem("RawBurger");
-            warningMessage = "Got raw burger!";
+            warningMessage = "Got Raw Burger!";
             messageTimer = 50;
             return;
         }
@@ -283,12 +283,12 @@ public class GamePanel extends JPanel {
         super.paintComponent(g);
 
         if (moneyBoardImg != null) {
-        	g.drawImage(moneyBoardImg, 244, 5, 400, 185, null);
+        	
         }
-        
-        g.setFont(new Font("Arial", Font.BOLD, 30));
+        g.drawImage(moneyBoardImg, 600, 10, 300, 140, null);
+        g.setFont(new Font("Arial", Font.BOLD, 26));
         g.setColor(new Color(90, 55, 20));
-        g.drawString("$" + scoreManager.getMoney(), 390, 105);
+        g.drawString("$" + scoreManager.getMoney(), 720, 90);
 
         if (materialsImg != null) {
         	g.drawImage(materialsImg, 25, 440, 588, 144, null);
@@ -334,10 +334,13 @@ public class GamePanel extends JPanel {
         g.setColor(Color.BLACK);
         List<Order> orders = orderManager.getOrders();
 
-        int startX = 50;   // 起点X（可以自己调）
-        int startY = 50;   // 顶部位置
-        int spacing = 200; // 每个订单之间的间距
 
+        int startX = 50;   
+        int startY = 50;   
+        int spacing = 200; 
+
+        g.setFont(new Font("Arial", Font.BOLD, 16));
+        
         for (int i = 0; i < orders.size(); i++) {
             Order o = orders.get(i);
 
