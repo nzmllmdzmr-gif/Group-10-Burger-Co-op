@@ -127,7 +127,7 @@ public class GamePanel extends JPanel {
                         	scoreManager.deductMoney();
                             orderManager.getOrders().remove(i);
                             orderManager.generateOrder();
-                            i--; // 防止跳过元素
+                            i--; 
                         }
                     }
 
@@ -334,15 +334,19 @@ public class GamePanel extends JPanel {
         g.setColor(Color.BLACK);
         List<Order> orders = orderManager.getOrders();
 
-        int startX = 30;
-        int startY = 100;
+        int startX = 50;   // 起点X（可以自己调）
+        int startY = 50;   // 顶部位置
+        int spacing = 200; // 每个订单之间的间距
 
         for (int i = 0; i < orders.size(); i++) {
             Order o = orders.get(i);
 
-            g.drawString("ORDER: " + o.getFoodName(), startX, startY + i * 40);
-            g.drawString("TIME: " + o.getTimeLeft() + "s", startX, startY + i * 40 + 15);
-        }
+            int x = startX + i * spacing;
+
+            g.drawString("ORDER: " + o.getFoodName(), x, startY);
+            g.drawString("TIME: " + o.getTimeLeft() + "s", x, startY + 20);
+        
+       }
         
         for (Patty p : grill.getPattiesOnGrill()) {
             BufferedImage currentImg = rawSteakImg;
